@@ -11,7 +11,6 @@ public class WebApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println(1);
 	}
 
 }
