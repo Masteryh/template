@@ -27,8 +27,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="book : ${bookList}">
-            <th scope="row" th:text="${book.id}"></th>
+        <tr th:each="book,bookStat : ${bookList}">
+            <th scope="row" th:text="${bookStat.count}"></th>
             <td><a th:href="@{/book/update/{bookId}(bookId=${book.id})}" th:text="${book.name}"></a></td>
             <td th:text="${book.vModel}"></td>
             <td th:text="${book.lPlate}"></td>
