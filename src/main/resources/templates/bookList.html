@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>档案管理</title>
+</head>
+
+<body>
+
+<div class="contentDiv">
+    <table class="table table-hover table-condensed">
+        <legend>
+            <strong>档案列表</strong>
+        </legend>
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>车型号</th>
+            <th>车牌号</th>
+            <th>日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${bookList}">
+            <th scope="row" th:text="${book.id}"></th>
+            <td><a th:href="@{/book/update/{bookId}(bookId=${book.id})}" th:text="${book.name}"></a></td>
+            <td th:text="${book.vModel}"></td>
+            <td th:text="${book.lPlate}"></td>
+            <td th:text="${book.sYear}+年+${book.sMonth}+月+${book.sDay}+日"></td>
+            <td>
+                <a class="btn btn-success"  th:onclick = "'down_file0('+${book.id}+')'">下载机动车抵押登记</a>
+                <a class="btn btn-danger"  th:onclick = "'down_file('+${book.id}+')'">下载红版档案</a>
+                <!--<a class="btn " style="color: white;background: black"  th:onclick = "'down_file2('+${book.id}+')'">下载黑版档案</a>-->
+                <a class="btn btn-default"  th:href="@{/book/delete/{bookId}(bookId=${book.id})}">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div><a class="btn btn-primary" href="/book/create" role="button">新增档案</a>
+    </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+    function down_file0(id) {
+        window.location.href="/book/download0/"+id;
+    }
+    function down_file(id) {
+        window.location.href="/book/download/"+id;
+    }
+    function down_file2(id) {
+        window.location.href="/book/download2/"+id;
+    }
+</script>
+<footer class="container-fluid foot-wrap">
+    <div class="container" align="center">
+        送给我美丽的姐姐小龙女的小工具，<span style="color: red">&copy;版权私有！</span>
+    </div>
+</footer>
+</body>
+</html>

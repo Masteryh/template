@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>档案管理</title>
+</head>
+
+<body>
+<div class="contentDiv">
+
+    <!--<h5>送给我美丽的姐姐小龙女的小工具，<span style="color: red">版权私有！</span></h5>-->
+
+    <legend>
+        <strong>档案信息</strong>
+    </legend>
+
+    <form th:action="@{/book/{action}(action=${action})}" method="post" class="form-horizontal">
+
+        <input type="hidden" name="id" th:value="${book.id}"/>
+        <div class="form-group">
+            <label for="book_sYear" class="col-sm-2 control-label">签单类型:</label>
+            <div class="col-xs-4">
+                <select id="book_sType" th:field="${book.sType}" th:value="${book.sType}" name="sType" lay-verify="requird" class="form-control">
+                    <option th:selected="${book.sType=='单签'}" value="单签">单签</option>
+                    <option th:selected="${book.sType=='双签'}" value="双签">双签</option>
+                </select>
+            </div>
+            <label for="book_sYear" class="col-sm-1 control-label">年:</label>
+            <div class="col-xs-1">
+                <input type="text" class="form-control" id="book_sYear" name="sYear" th:value="${book.sYear}"
+                       th:field="*{book.sYear}"/>
+            </div>
+            <label for="book_sMonth" class="col-sm-1 control-label">月:</label>
+            <div class="col-xs-1">
+                <input type="text" class="form-control" id="book_sMonth" name="sMonth" th:value="${book.sMonth}"
+                       th:field="*{book.sMonth}"/>
+            </div>
+            <label for="book_sDay" class="col-sm-1 control-label">日:</label>
+            <div class="col-xs-1">
+                <input type="text" class="form-control" id="book_sDay" name="sDay" th:value="${book.sDay}"
+                       th:field="*{book.sDay}"/>
+            </div>
+        </div>
+        <strong>人员信息</strong>
+        <hr/>
+        <div class="form-group">
+            <label for="book_name" class="col-sm-1 control-label">姓名:</label>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="book_name" name="name" th:value="${book.name}"
+                       th:field="*{book.name}"/>
+            </div>
+            <label for="book_sex" class="col-sm-1 control-label">性别:</label>
+            <div class="col-xs-2">
+                    <select id="book_sex" th:field="${book.sex}" th:value="${book.sex}" name="sex" lay-verify="requird" class="form-control">
+                        <option th:selected="${book.sex=='男'}" value="男">男</option>
+                        <option th:selected="${book.sex=='女'}" value="女">女</option>
+                    </select>
+            </div>
+            <label for="book_bYear" class="col-sm-1 control-label">出生年份:</label>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="book_bYear" name="bYear" th:value="${book.bYear}"
+                       th:field="*{book.bYear}"/>
+            </div>
+            <label for="book_tel" class="col-sm-1 control-label">电话:</label>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="book_tel" name="tel" th:value="${book.tel}"
+                       th:field="*{book.tel}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_mStatus" class="col-sm-2 control-label">婚姻状况:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_mStatus" name="mStatus" th:value="${book.mStatus}"
+                       th:field="*{book.mStatus}"/>
+            </div>
+            <label for="book_education" class="col-sm-2 control-label">学历:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_education" name="education" th:value="${book.education}"
+                       th:field="*{book.education}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_card" class="col-sm-2 control-label">身份证号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_card" name="card" th:value="${book.card}"
+                       th:field="*{book.card}"/>
+            </div>
+            <label for="book_lCAdd" class="col-sm-2 control-label">现居住地址:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_lCAdd" name="lCAdd" th:value="${book.lCAdd}"
+                       th:field="*{book.lCAdd}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_pLAdd" class="col-sm-2 control-label">户籍地址:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_pLAdd" rows="2" name="pLAdd"
+                          th:value="${book.pLAdd}" th:field="*{book.pLAdd}"></textarea>
+            </div>
+            <label for="book_pAdd" class="col-sm-2 control-label">户口所在地:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_pAdd" rows="2" name="pAdd"
+                          th:value="${book.pAdd}" th:field="*{book.pAdd}"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_IType" class="col-sm-2 control-label">行业类型:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_IType" name="IType" th:value="${book.IType}"
+                       th:field="*{book.IType}"/>
+            </div>
+            <label for="book_Serving" class="col-sm-2 control-label">任职:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_Serving" name="Serving" th:value="${book.Serving}"
+                       th:field="*{book.Serving}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_company" class="col-sm-2 control-label">单位:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_company" rows="2" name="company"
+                          th:value="${book.company}" th:field="*{book.company}"></textarea>
+            </div>
+            <label for="book_cAdd" class="col-sm-2 control-label">单位地址:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_cAdd" rows="2" name="cAdd"
+                          th:value="${book.cAdd}" th:field="*{book.cAdd}"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_MBusiness" class="col-sm-2 control-label">主要经营:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_MBusiness" rows="2" name="MBusiness"
+                          th:value="${book.MBusiness}" th:field="*{book.MBusiness}"></textarea>
+            </div>
+        </div>
+
+
+        <strong>车辆信息</strong>
+        <hr/>
+        <div class="form-group">
+            <label for="book_RDate" class="col-sm-2 control-label">登记日期（yyyy-mm-dd）:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_RDate" name="RDate" th:value="${book.RDate}"
+                       th:field="*{book.RDate}"/>
+            </div>
+            <label for="book_lPlate" class="col-sm-2 control-label">车牌号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_lPlate" name="lPlate" th:value="${book.lPlate}"
+                       th:field="*{book.lPlate}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_cType" class="col-sm-2 control-label">车辆类型:</label>
+            <div class="col-xs-4">
+                <select id="book_cType" th:field="${book.cType}" th:value="${book.cType}" name="cType" lay-verify="requird" class="form-control">
+                    <option th:selected="${book.cType=='小型轿车'}" value="小型轿车">小型轿车</option>
+                    <option th:selected="${book.cType=='小型越野客车'}" value="小型越野客车">小型越野客车</option>
+                    <option th:selected="${book.cType=='小型普通客车'}" value="小型普通客车">小型普通客车</option>
+                </select>
+            </div>
+            <label for="book_cBrand" class="col-sm-2 control-label">车型品牌:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_cBrand" name="cBrand" th:value="${book.cBrand}"
+                       th:field="*{book.cBrand}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_vModel" class="col-sm-2 control-label">车型号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_vModel" name="vModel" th:value="${book.vModel}"
+                       th:field="*{book.vModel}"/>
+            </div>
+            <label for="book_cColor" class="col-sm-2 control-label">车身颜色:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_cColor" name="cColor" th:value="${book.cColor}"
+                       th:field="*{book.cColor}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_Fnum" class="col-sm-2 control-label">车架号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_Fnum" name="Fnum" th:value="${book.Fnum}"
+                       th:field="*{book.Fnum}"/>
+            </div>
+            <label for="book_eNum" class="col-sm-2 control-label">发动机号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_eNum" name="eNum" th:value="${book.eNum}"
+                       th:field="*{book.eNum}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_FuType" class="col-sm-2 control-label">燃料种类:</label>
+            <div class="col-xs-4">
+                <select id="book_FuType" th:field="${book.FuType}" th:value="${book.FuType}" name="FuType" lay-verify="requird" class="form-control">
+                    <option th:selected="${book.FuType=='汽油'}" value="汽油">汽油</option>
+                    <option th:selected="${book.FuType=='电'}" value="电">电</option>
+                </select>
+            </div>
+            <label for="book_totalQ" class="col-sm-2 control-label">总质量:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_totalQ" name="totalQ" th:value="${book.totalQ}"
+                       th:field="*{book.totalQ}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_sLife" class="col-sm-2 control-label">使用年限:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_sLife" name="sLife" th:value="${book.sLife}"
+                       th:field="*{book.sLife}"/>
+            </div>
+            <label for="book_nRate" class="col-sm-2 control-label">成新率:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_nRate" name="nRate" th:value="${book.nRate}"
+                       th:field="*{book.nRate}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_vPriceL" class="col-sm-2 control-label">车价大写:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_vPriceL" name="vPriceL" th:value="${book.vPriceL}"
+                       th:field="*{book.vPriceL}"/>
+            </div>
+            <label for="book_vPriceM" class="col-sm-2 control-label">车价小写:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_vPriceM" name="vPriceM" th:value="${book.vPriceM}"
+                       th:field="*{book.vPriceM}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_SMoney" class="col-sm-2 control-label">自筹款(万元):</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_SMoney" name="SMoney" th:value="${book.SMoney}"
+                       th:field="*{book.SMoney}"/>
+            </div>
+            <label for="book_Valuation" class="col-sm-2 control-label">评估价(大写):</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_Valuation" name="Valuation" th:value="${book.Valuation}"
+                       th:field="*{book.Valuation}"/>
+            </div>
+        </div>
+        <strong>合同信息</strong>
+        <hr/>
+
+        <div class="form-group">
+            <label for="book_cSum" class="col-sm-2 control-label">合同额大写:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_cSum" name="cSum" th:value="${book.cSum}"
+                       th:field="*{book.cSum}"/>
+            </div>
+            <label for="book_cSumM" class="col-sm-2 control-label">合同额小写:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_cSumM" name="cSumM" th:value="${book.cSumM}"
+                       th:field="*{book.cSumM}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_lCNum" class="col-sm-2 control-label">贷款卡号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_lCNum" name="lCNum" th:value="${book.lCNum}"
+                       th:field="*{book.lCNum}"/>
+            </div>
+            <label for="book_pNum" class="col-sm-2 control-label">保单号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_pNum" name="pNum" th:value="${book.pNum}"
+                       th:field="*{book.pNum}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_totalA" class="col-sm-1 control-label">资产总额:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_totalA" name="totalA" th:value="${book.totalA}"
+                       th:field="*{book.totalA}"/>
+            </div>
+            <label for="book_totalL" class="col-sm-1 control-label">负债总额:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_totalL" name="totalL" th:value="${book.totalL}"
+                       th:field="*{book.totalL}"/>
+            </div>
+            <label for="book_Barea" class="col-sm-1 control-label">建筑面积:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_Barea" name="Barea" th:value="${book.Barea}"
+                       th:field="*{book.Barea}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_MI" class="col-sm-1 control-label">月收入（万元）:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_MI" name="MI" th:value="${book.MI}"
+                       th:field="*{book.MI}"/>
+            </div>
+            <label for="book_YI" class="col-sm-1 control-label">年收入（万元）:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_YI" name="YI" th:value="${book.YI}"
+                       th:field="*{book.YI}"/>
+            </div>
+            <label for="book_YO" class="col-sm-1 control-label">年支出（万元）:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_YO" name="YO" th:value="${book.YO}"
+                       th:field="*{book.YO}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_UOI" class="col-sm-1 control-label">借款用途:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_UOI" name="UOI" th:value="${book.UOI}"
+                       th:field="*{book.UOI}"/>
+            </div>
+            <label for="book_MRate" class="col-sm-1 control-label">抵押率:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_MRate" name="MRate" th:value="${book.MRate}"
+                       th:field="*{book.MRate}"/>
+            </div>
+            <label for="book_IIncome" class="col-sm-1 control-label">利息收入:</label>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" id="book_IIncome" name="IIncome" th:value="${book.IIncome}"
+                       th:field="*{book.IIncome}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_BCause" class="col-sm-2 control-label">借款原因:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_BCause" rows="2" name="BCause"
+                          th:value="${book.BCause}" th:field="*{book.BCause}"></textarea>
+            </div>
+            <label for="book_CDetails" class="col-sm-2 control-label">征信详情:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_CDetails" rows="2" name="CDetails"
+                          th:value="${book.CDetails}" th:field="*{book.CDetails}"></textarea>
+            </div>
+        </div>
+        <strong>配偶信息</strong>
+        <hr/>
+        <div class="form-group">
+            <label for="book_nameP" class="col-sm-1 control-label">配偶姓名:</label>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="book_nameP" name="nameP" th:value="${book.nameP}"
+                       th:field="*{book.nameP}"/>
+            </div>
+            <label for="book_sexP" class="col-sm-1 control-label">配偶性别:</label>
+            <div class="col-xs-2">
+                <select id="book_sexP" th:field="${book.sexP}" th:value="${book.sexP}" name="sexP" lay-verify="requird" class="form-control">
+                    <option th:selected="${book.sexP=='女'}" value="女">女</option>
+                    <option th:selected="${book.sexP=='男'}" value="男">男</option>
+                </select>
+            </div>
+            <label for="book_bYearP" class="col-sm-1 control-label">配偶出生年份:</label>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="book_bYearP" name="bYearP" th:value="${book.bYearP}"
+                       th:field="*{book.bYearP}"/>
+            </div>
+            <label for="book_telP" class="col-sm-1 control-label">配偶电话:</label>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="book_telP" name="telP" th:value="${book.telP}"
+                       th:field="*{book.telP}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_mStatusP" class="col-sm-2 control-label">配偶婚姻状况:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_mStatusP" name="mStatusP" th:value="${book.mStatusP}"
+                       th:field="*{book.mStatusP}"/>
+            </div>
+            <label for="book_educationP" class="col-sm-2 control-label">配偶学历:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_educationP" name="educationP" th:value="${book.educationP}"
+                       th:field="*{book.educationP}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="book_cardP" class="col-sm-2 control-label">配偶身份证号:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_cardP" name="cardP" th:value="${book.cardP}"
+                       th:field="*{book.cardP}"/>
+            </div>
+            <label for="book_lCAddP" class="col-sm-2 control-label">配偶现居住地址:</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="book_lCAddP" name="lCAddP" th:value="${book.lCAddP}"
+                       th:field="*{book.lCAddP}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_pLAddP" class="col-sm-2 control-label">配偶户籍地址:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_pLAddP" rows="2" name="pLAddP"
+                          th:value="${book.pLAddP}" th:field="*{book.pLAddP}"></textarea>
+            </div>
+            <label for="book_pAddP" class="col-sm-2 control-label">配偶户口所在地:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_pAddP" rows="2" name="pAddP"
+                          th:value="${book.pAddP}" th:field="*{book.pAddP}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="book_companyP" class="col-sm-2 control-label">配偶单位:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_companyP" rows="2" name="companyP"
+                          th:value="${book.companyP}" th:field="*{book.companyP}"></textarea>
+            </div>
+            <label for="book_cAddP" class="col-sm-2 control-label">配偶单位地址:</label>
+            <div class="col-xs-4">
+                <textarea class="form-control" id="book_cAddP" rows="2" name="cAddP"
+                          th:value="${book.cAddP}" th:field="*{book.cAddP}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 50px">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input class="btn btn-primary" type="submit" value="提交"/>&nbsp;&nbsp;
+                <input class="btn" type="button" value="返回" onclick="history.back()"/>
+            </div>
+        </div>
+    </form>
+</div>
+<footer class="container-fluid foot-wrap" style="margin-top: 50px;">
+    <div class="container" align="center">
+        送给我美丽的姐姐小龙女的小工具，<span style="color: red">&copy;版权私有！</span>
+    </div>
+</footer>
+</body>
+</html>
