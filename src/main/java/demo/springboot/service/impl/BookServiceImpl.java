@@ -2,6 +2,7 @@ package demo.springboot.service.impl;
 
 import com.deepoove.poi.XWPFTemplate;
 import demo.springboot.domain.Book;
+import demo.springboot.domain.BookRepository;
 import demo.springboot.service.BookService;
 import demo.springboot.utils.Excel2TemplateUtils;
 import demo.springboot.utils.ExcelTemplateUtils;
@@ -9,7 +10,7 @@ import demo.springboot.utils.UncloseableZipOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +25,10 @@ import java.util.zip.ZipEntry;
  *
  */
 @Service
-@Configuration
 public class BookServiceImpl implements BookService {
 
-    // 模拟数据库，存储 Book 信息
-    private static Map<Long, Book> BOOK_DB = new HashMap<>();
+    @Autowired
+    BookRepository bookRepository;
     //文件名
 //    private String tempName ="4个人借款格式申请书.xls";
     private String tempName ="备忘录.docx|1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|" +
@@ -50,30 +50,29 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findAll() {
-        return new ArrayList<>(BOOK_DB.values());
+        return bookRepository.findAll();
     }
 
     @Override
     public Book insertByBook(Book book) {
-        book.setId(BOOK_DB.size() + 1L);
-        BOOK_DB.put(book.getId(), book);
-        return book;
+        return bookRepository.save(book);
     }
 
     @Override
     public Book update(Book book) {
-        BOOK_DB.put(book.getId(), book);
-        return book;
+        return bookRepository.save(book);
     }
 
     @Override
     public Book delete(Long id) {
-        return BOOK_DB.remove(id);
+        Book book = bookRepository.findById(id).get();
+        bookRepository.delete(book);
+        return book;
     }
 
     @Override
     public Book findById(Long id) {
-        return BOOK_DB.get(id);
+        return bookRepository.findById(id).get();
     }
 
 

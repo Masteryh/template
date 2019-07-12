@@ -1,8 +1,10 @@
 package demo.springboot.domain;
 
-import com.deepoove.poi.config.Name;
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -10,6 +12,7 @@ import java.io.Serializable;
  *zyh
  */
 @Data
+@Entity
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor
 @Builder
@@ -18,6 +21,8 @@ public class Book implements Serializable {
     /**
      * 编号
      */
+    @Id
+    @GeneratedValue
     private Long id;
 
     /**
