@@ -1,6 +1,7 @@
 package demo.springboot.service;
 
 import demo.springboot.domain.Book;
+import org.springframework.data.domain.Page;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public interface BookService {
     /**
      * 获取所有 Book
      */
-    List<Book> findAll();
+    Page<Book> findAll(Integer page , Integer Size);
 
     /**
      * 新增 Book

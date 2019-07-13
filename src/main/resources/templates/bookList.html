@@ -16,6 +16,9 @@
         <legend>
             <strong>档案列表</strong>
         </legend>
+        <div align="right">
+        <a class="btn btn-primary" href="/book/create" role="button">新增档案</a>
+        </div>
         <thead>
         <tr>
             <th>编号</th>
@@ -42,7 +45,13 @@
         </tr>
         </tbody>
     </table>
-    <div><a class="btn btn-primary" href="/book/create" role="button">新增档案</a>
+    <div align="center">
+
+        当前<span th:text="${localp}+1" style="color: red">1</span>页,共<span th:text="${totalPages} >0 ? ${totalPages} : 1">1</span>页
+        <a class="btn btn-default" style="margin-left: 10px" th:href="@{/book(page=0)}">首页</a>
+        <a class="btn btn-default" style="margin-left: 10px" th:if="${localp}>0" th:href="@{/book(page=${localp}-1)}">上一页</a>
+        <a class="btn btn-default" style="margin-left: 10px" th:if="${localp}<${totalPages}-1" th:href="@{/book(page=${localp}+1)}">下一页</a>
+        <a class="btn btn-default" style="margin-left: 10px" th:if="${localp}<${totalPages}-1" th:href="@{/book(page=${totalPages}-1)}">尾页</a>
     </div>
 </div>
 <script type="text/javascript" th:inline="javascript">

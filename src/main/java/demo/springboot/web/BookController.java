@@ -3,6 +3,8 @@ package demo.springboot.web;
 import demo.springboot.domain.Book;
 import demo.springboot.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,16 @@ public class BookController {
      * 处理 "/book" 的 GET 请求，用来获取 Book 列表
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String getBookList(ModelMap map) {
-        map.addAttribute("bookList",bookService.findAll());
+    public String getBookList(ModelMap map,
+                              @RequestParam(value = "page",defaultValue = "0") Integer page) {
+        Page<Book> datas = bookService.findAll(page, 15);
+        Pageable pageable = datas.getPageable();
+
+        map.addAttribute("bookList",datas);
+        map.addAttribute("localpage",datas.getNumber());
+        map.addAttribute("localp",pageable.getPageNumber());
+        map.addAttribute("NumberOfElements",datas.getNumberOfElements());
+        map.addAttribute("totalPages",datas.getTotalPages());
         return BOOK_LIST_PATH_NAME;
     }
 

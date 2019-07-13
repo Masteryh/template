@@ -11,6 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,8 +53,10 @@ public class BookServiceImpl implements BookService {
             "26上会  协议合同.docx|德鑫慧源汽车分期贷款担保合同怀安城(1).docx|照片格式北京(1).docx";
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public Page<Book> findAll(Integer page , Integer size) {
+        @SuppressWarnings("deprecation")
+        Pageable pageable = new PageRequest(page, size, Sort.Direction.DESC, "id");
+        return bookRepository.findAll(pageable);
     }
 
     @Override
