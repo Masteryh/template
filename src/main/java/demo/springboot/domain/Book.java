@@ -334,5 +334,17 @@ public class Book implements Serializable {
      */
     private String sDay;
 
+    /**
+     * 期数
+     */
+    private String nop;
 
+    /**
+     * 服务费0000
+     */
+    private String SCML;
+    /**
+     * 渠道费0000
+     */
+    private String CFML;
 }

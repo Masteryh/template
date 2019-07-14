@@ -1,6 +1,7 @@
 package demo.springboot.service.impl;
 
 import com.deepoove.poi.XWPFTemplate;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import demo.springboot.domain.Book;
 import demo.springboot.domain.BookRepository;
 import demo.springboot.service.BookService;
@@ -59,14 +60,14 @@ public class BookServiceImpl implements BookService {
             "10受托支付审批表.docx|15同意抵押意见书 （抵押贷款用）单签.docx|16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书.docx|" +
             "20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|22到期未偿还贷款法律责任告知书.docx|23债务人违约失信惩戒承诺函模板 2.docx|" +
             "24上会  会议纪要.docx|25上会  送审报告.docx|26上会  协议合同.docx|客户声明(1).docx|三方委托协议(1).docx|" +
-            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx";
+            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx|机动车抵押登记.docx";
     private String tempNameX2 = "1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|4个人借款格式申请书.xls|" +
-            "5贷前查询申请表.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|7.调查报告 抵押贷 打工者 怀安城(2).docx|" +
-            "7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷.xls|9借款人支付委托书.docx|" +
+            "5贷前查询申请表 双签.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|7.调查报告 抵押贷 打工者 怀安城(2).docx|" +
+            "7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷 双签.xls|9借款人支付委托书.docx|" +
             "10受托支付审批表.docx|15同意抵押意见书 （抵押贷款用）.docx|16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书.docx|" +
             "20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|22到期未偿还贷款法律责任告知书.docx|23债务人违约失信惩戒承诺函模板 2.docx|" +
             "24上会  会议纪要.docx|25上会  送审报告.docx|26上会  协议合同.docx|客户声明(1).docx|三方委托协议(1).docx|" +
-            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx";
+            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx|机动车抵押登记.docx";
     @Override
     public Page<Book> findAll(Integer page , Integer size) {
         @SuppressWarnings("deprecation")
@@ -254,6 +255,12 @@ public class BookServiceImpl implements BookService {
             int yearNow = cal.get(Calendar.YEAR);  //当前年份
             book.setAgeP(String.valueOf(yearNow-Integer.valueOf(book.getBYearP())));
         }
+        //服务费0000渠道费0000
+        if (StringUtils.isNotBlank(book.getCSumM()) && StringUtils.isNotBlank(book.getCSumML())) {
+            book.setSCML(String.valueOf(Math.round(Double.valueOf(book.getCSumML()) * Double.valueOf(book.getNop())*0.005)));
+            book.setCFML(String.valueOf(Math.round(Double.valueOf(book.getCSumML()) *0.03)));
+        }
+
         Map<String, Object> data = new HashMap<>();
         data.put("cls", book);
         String zipName = "";

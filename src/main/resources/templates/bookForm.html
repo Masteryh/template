@@ -22,11 +22,19 @@
 
         <input type="hidden" name="id" th:value="${book.id}"/>
         <div class="form-group">
-            <label for="book_sYear" class="col-sm-2 control-label">签单类型:</label>
-            <div class="col-xs-4">
+            <label for="book_sYear" class="col-sm-1 control-label">签单类型:</label>
+            <div class="col-xs-2">
                 <select id="book_sType" th:field="${book.sType}" th:value="${book.sType}" name="sType" lay-verify="requird" class="form-control">
                     <option th:selected="${book.sType=='单签'}" value="单签">单签</option>
                     <option th:selected="${book.sType=='双签'}" value="双签">双签</option>
+                </select>
+            </div>
+            <label for="book_sYear" class="col-sm-1 control-label">期数:</label>
+            <div class="col-xs-2">
+                <select id="book_nop" th:field="${book.nop}" th:value="${book.nop}" name="nop" lay-verify="requird" class="form-control">
+                    <option th:selected="${book.nop=='3'}" value="3">3</option>
+                    <option th:selected="${book.nop=='6'}" value="6">6</option>
+                    <option th:selected="${book.nop=='12'}" value="12">12</option>
                 </select>
             </div>
             <label for="book_sYear" class="col-sm-1 control-label">年:</label>
