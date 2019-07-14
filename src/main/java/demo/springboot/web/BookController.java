@@ -121,7 +121,7 @@ public class BookController {
         }
     }
     /**
-     * 下载Book黑色
+     * 下载Book先息后本
      * 处理 "/book/{id}" 的 GET 请求，用来删除 Book 信息
      */
     @RequestMapping(value = "/download2/{id}", method = RequestMethod.GET)

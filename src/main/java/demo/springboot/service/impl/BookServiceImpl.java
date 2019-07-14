@@ -33,8 +33,8 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     BookRepository bookRepository;
-    //文件名
-//    private String tempName ="4个人借款格式申请书.xls";
+    //等额本息单双签
+    //单签
     private String tempName ="备忘录.docx|1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|" +
             "4个人借款格式申请书(2)怀安城(1).xls|5贷前查询申请表.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|" +
             "7.调查报告 抵押贷 打工者 怀安城(2)(1).docx|7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷.xls|" +
@@ -43,6 +43,7 @@ public class BookServiceImpl implements BookService {
             "16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书(2)(1).docx|20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|" +
             "22到期未偿还贷款法律责任告知书.docx|23债务人违约失信惩戒承诺函模板 2.docx|24上会  会议纪要.docx|25上会  送审报告.docx|" +
             "26上会  协议合同.docx|德鑫慧源汽车分期贷款担保合同怀安城(1).docx|照片格式北京(1).docx|客户声明(1)(1).docx";
+    //双签
     private String tempName2 ="备忘录.docx|1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|" +
             "4个人借款格式申请书(2)怀安城(1).xls|5贷前查询申请表 双签.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|" +
             "7.调查报告 抵押贷 打工者 怀安城(2)(1).docx|7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷 双签.xls|" +
@@ -51,7 +52,21 @@ public class BookServiceImpl implements BookService {
             "16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书(2)(1).docx|20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|" +
             "22到期未偿还贷款法律责任告知书.docx|23债务人违约失信惩戒承诺函模板 2.docx|24上会  会议纪要.docx|25上会  送审报告.docx|" +
             "26上会  协议合同.docx|德鑫慧源汽车分期贷款担保合同怀安城(1).docx|照片格式北京(1).docx|客户声明(1)(1).docx";
-
+    //先息后本模板单双签
+    private String tempNameX = "1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|4个人借款格式申请书.xls|" +
+            "5贷前查询申请表.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|7.调查报告 抵押贷 打工者 怀安城(2).docx|" +
+            "7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷.xls|9借款人支付委托书.docx|" +
+            "10受托支付审批表.docx|15同意抵押意见书 （抵押贷款用）单签.docx|16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书.docx|" +
+            "20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|22到期未偿还贷款法律责任告知书.docx|23债务人违约失信惩戒承诺函模板 2.docx|" +
+            "24上会  会议纪要.docx|25上会  送审报告.docx|26上会  协议合同.docx|客户声明(1).docx|三方委托协议(1).docx|" +
+            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx";
+    private String tempNameX2 = "1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|4个人借款格式申请书.xls|" +
+            "5贷前查询申请表.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|7.调查报告 抵押贷 打工者 怀安城(2).docx|" +
+            "7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷.xls|9借款人支付委托书.docx|" +
+            "10受托支付审批表.docx|15同意抵押意见书 （抵押贷款用）.docx|16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书.docx|" +
+            "20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|22到期未偿还贷款法律责任告知书.docx|23债务人违约失信惩戒承诺函模板 2.docx|" +
+            "24上会  会议纪要.docx|25上会  送审报告.docx|26上会  协议合同.docx|客户声明(1).docx|三方委托协议(1).docx|" +
+            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx";
     @Override
     public Page<Book> findAll(Integer page , Integer size) {
         @SuppressWarnings("deprecation")
@@ -243,9 +258,9 @@ public class BookServiceImpl implements BookService {
         data.put("cls", book);
         String zipName = "";
         if (type > 0) {
-            zipName = book.getName() + " " + book.getCBrand() + " " + book.getSYear() + "." + book.getSMonth() + "." + book.getSDay();
+            zipName = book.getName() + " " + book.getCBrand() + " " + book.getSYear() + "." + book.getSMonth() + "." + book.getSDay()+"等额本息";
         }else {
-            zipName=book.getName() + " " + book.getCBrand() + " " + book.getSYear() + "." + book.getSMonth() + "." + book.getSDay()+"黑版";
+            zipName=book.getName() + " " + book.getCBrand() + " " + book.getSYear() + "." + book.getSMonth() + "." + book.getSDay()+"先息后本";
         }
         try {
             /*根据request的locale 得出可能的编码，中文操作系统通常是gb2312*/
@@ -262,9 +277,18 @@ public class BookServiceImpl implements BookService {
         try {
             String tempstr = "";
             if (book.getSType().equals("单签")) {
-                tempstr = tempName;
+                if (type > 0){
+                    tempstr = tempName;
+                }else {
+                    tempstr = tempNameX;
+                }
+
             }else if (book.getSType().equals("双签")){
-                tempstr = tempName2;
+                if (type > 0){
+                    tempstr = tempName2;
+                }else {
+                    tempstr = tempNameX2;
+                }
             }
             List<String> tempNames = Arrays.asList(tempstr.split("\\|",-1));
             //模板地址
@@ -277,7 +301,8 @@ public class BookServiceImpl implements BookService {
                 }
                 InputStream stream = getClass().getClassLoader().getResourceAsStream(filepath);
                 String zipFileName = fileName;
-                if (zipFileName.endsWith(".docx")&& !zipFileName.startsWith("19") && !zipFileName.startsWith("26")&& !zipFileName.startsWith("德鑫慧源")){
+                if (zipFileName.endsWith(".docx")&& !zipFileName.startsWith("19") && !zipFileName.startsWith("26")&& !zipFileName.startsWith("德鑫慧源")
+                        && !zipFileName.startsWith("先息德鑫慧源") && !zipFileName.startsWith("先息服务合同")){
                     zipFileName = zipFileName.substring(0, zipFileName.length() - 1);
                 }
                 ZipEntry z = new ZipEntry(zipFileName);

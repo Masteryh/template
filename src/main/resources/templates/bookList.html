@@ -36,11 +36,11 @@
             <td th:text="${book.vModel}"></td>
             <td th:text="${book.lPlate}"></td>
             <td th:text="${book.sYear}+年+${book.sMonth}+月+${book.sDay}+日"></td>
-            <td>
+            <td style="width: 600px">
                 <a class="btn btn-success"  th:onclick = "'down_file0('+${book.id}+')'">下载机动车抵押登记</a>
-                <a class="btn btn-danger"  th:onclick = "'down_file('+${book.id}+')'">下载红版档案</a>
-                <!--<a class="btn " style="color: white;background: black"  th:onclick = "'down_file2('+${book.id}+')'">下载黑版档案</a>-->
-                <a class="btn btn-default"  th:href="@{/book/delete/{bookId}(bookId=${book.id})}">删除</a>
+                <a class="btn btn-danger" style="margin-left: 20px"  th:onclick = "'down_file('+${book.id}+')'">下载等额本息档案</a>
+                <a class="btn btn-info" style="margin-left: 20px"  th:onclick = "'down_file2('+${book.id}+')'">下载先息后本档案</a>
+                <a class="btn btn-default" style="margin-left: 20px"  th:href="@{/book/delete/{bookId}(bookId=${book.id})}">删除</a>
             </td>
         </tr>
         </tbody>
