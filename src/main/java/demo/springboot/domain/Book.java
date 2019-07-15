@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Book 实体类
@@ -333,7 +334,10 @@ public class Book implements Serializable {
      * 日
      */
     private String sDay;
-
+    /**
+     * 年月日 yyyy/MM/dd
+     */
+    private String sYMD;
     /**
      * 期数
      */

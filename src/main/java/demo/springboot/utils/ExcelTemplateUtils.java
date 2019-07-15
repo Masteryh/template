@@ -14,6 +14,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -168,7 +170,22 @@ public class ExcelTemplateUtils {
             Object value = getAttributeByPath(data, path);
             m.appendReplacement(sb, value == null ? "" : value.toString());
         }
-        setCellValue(cell, sb.toString());
+        SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd");
+        // 设置日期转化成功标识
+        boolean dateflag=true;
+        Date date = null;
+        try {
+            date = format.parse(sb.toString());
+        } catch (ParseException e) {
+            dateflag=false;
+        }finally {
+            if (dateflag){
+                setCellValue(cell, date);
+            }else {
+                setCellValue(cell, sb.toString());
+            }
+        }
+
     }
 
     /**
