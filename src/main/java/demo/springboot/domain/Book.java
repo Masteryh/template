@@ -242,6 +242,14 @@ public class Book implements Serializable {
      * 合同额度小写0000
      */
     private String cSumML;
+    /**
+     * 上扣
+     */
+    private String cSumMR;
+    /**
+     * 月还款
+     */
+    private String cSumMRL;
 
     /**
      * 贷款卡号
