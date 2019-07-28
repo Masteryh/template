@@ -245,15 +245,27 @@
         </div>
 
         <div class="form-group">
-            <label for="book_SMoney" class="col-sm-2 control-label">自筹款(万元):</label>
+        <label for="book_SMoney" class="col-sm-2 control-label">自筹款(万元):</label>
+        <div class="col-xs-4">
+            <input type="text" class="form-control" id="book_SMoney" name="SMoney" th:value="${book.SMoney}"
+                   th:field="*{book.SMoney}"/>
+        </div>
+        <label for="book_Valuation" class="col-sm-2 control-label">评估价(大写):</label>
+        <div class="col-xs-4">
+            <input type="text" class="form-control" id="book_Valuation" name="Valuation" th:value="${book.Valuation}"
+                   th:field="*{book.Valuation}"/>
+        </div>
+    </div>
+        <div class="form-group">
+            <label for="book_PPP" class="col-sm-2 control-label">原始购买价格(大写元整 / 0.8):</label>
             <div class="col-xs-4">
-                <input type="text" class="form-control" id="book_SMoney" name="SMoney" th:value="${book.SMoney}"
-                       th:field="*{book.SMoney}"/>
+                <input type="text" class="form-control" id="book_PPP" name="PPP" th:value="${book.PPP}"
+                       th:field="*{book.PPP}"/>
             </div>
-            <label for="book_Valuation" class="col-sm-2 control-label">评估价(大写):</label>
+            <label for="book_AML" class="col-sm-2 control-label">累计行驶里程(公里):</label>
             <div class="col-xs-4">
-                <input type="text" class="form-control" id="book_Valuation" name="Valuation" th:value="${book.Valuation}"
-                       th:field="*{book.Valuation}"/>
+                <input type="text" class="form-control" id="book_AML" name="AML" th:value="${book.AML}"
+                       th:field="*{book.AML}"/>
             </div>
         </div>
         <strong>合同信息</strong>

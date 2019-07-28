@@ -359,4 +359,12 @@ public class Book implements Serializable {
      * 渠道费0000
      */
     private String CFML;
+    /**
+     * 累计行驶里程0000
+     */
+    private String AML;
+    /**
+     * 原始购买价格
+     */
+    private String PPP;
 }
