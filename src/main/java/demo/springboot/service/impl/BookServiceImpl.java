@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,12 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     BookRepository bookRepository;
-
+    @Value("${filePath}")
+    private String filePath;
+    @Value("${singleFile}")
+    private String singleFile;
+    @Value("${doubleFile}")
+    private String doubleFile;
     //等额本息单双签
     //单签
     private String tempName ="备忘录.docx|1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|" +
@@ -231,22 +237,7 @@ public class BookServiceImpl implements BookService {
                 book.setBond(result);
             }
         }
-        //月还款算法
-        if (StringUtils.isNotBlank(book.getCSumM())) {
-            if (Double.valueOf(book.getCSumM()) > 0) {
-                Double db = Double.valueOf(book.getCSumM()) * 0.005;
-                DecimalFormat df = new DecimalFormat("#.0");
-                book.setCSumMR(df.format(db));
-            }
-        }
-        //月还款算法
-        if (StringUtils.isNotBlank(book.getCSumM())) {
-            if (Double.valueOf(book.getCSumM()) > 0) {
-                Double db = Double.valueOf(book.getCSumM()) * 0.013;
-                DecimalFormat df = new DecimalFormat("#.0");
-                book.setCSumMRL(df.format(db));
-            }
-        }
+
         //车价小写0000
         if (StringUtils.isNotBlank(book.getVPriceM())) {
 
@@ -285,6 +276,30 @@ public class BookServiceImpl implements BookService {
         if (StringUtils.isNotBlank(book.getSYear()) && StringUtils.isNotBlank(book.getSMonth()) && StringUtils.isNotBlank(book.getSDay())) {
             book.setSYMD(book.getSYear()+"/"+book.getSMonth()+"/"+book.getSDay());
         }
+        //上扣算法
+        if (StringUtils.isNotBlank(book.getCSumML())) {
+            if (Double.valueOf(book.getCSumML()) > 0) {
+                Double db  = Double.valueOf(book.getCSumML()) * 0.005;
+                DecimalFormat df = new DecimalFormat("#.00000000");
+                String result = df.format(db);
+                while (result.endsWith("0")) {
+                    result = result.substring(0, result.length() - 1);
+                }
+                book.setCSumMR(result);
+            }
+        }
+        //月还款算法
+        if (StringUtils.isNotBlank(book.getCSumML())) {
+            if (Double.valueOf(book.getCSumML()) > 0) {
+                Double db = Double.valueOf(book.getCSumML()) * 0.013;
+                DecimalFormat df = new DecimalFormat("#.00000000");
+                String result = df.format(db);
+                while (result.endsWith("0")) {
+                    result = result.substring(0, result.length() - 1);
+                }
+                book.setCSumMRL(result);
+            }
+        }
         Map<String, Object> data = new HashMap<>();
         data.put("cls", book);
         String zipName = "";
@@ -306,32 +321,27 @@ public class BookServiceImpl implements BookService {
         //压缩输出流
         UncloseableZipOutputStream zipOutputStream = new UncloseableZipOutputStream(os);
         try {
-            String tempstr = "";
-            if (book.getSType().equals("单签")) {
-                if (type > 0){
-                    tempstr = tempName;
-                }else {
-                    tempstr = tempNameX;
-                }
-
-            }else if (book.getSType().equals("双签")){
-                if (type > 0){
-                    tempstr = tempName2;
-                }else {
-                    tempstr = tempNameX2;
-                }
+            String newFilePath = "";
+            if (type > 0){
+                newFilePath = filePath+"\\temp1";
+            }else {
+                newFilePath = filePath+"\\temp2";;
             }
-            List<String> tempNames = Arrays.asList(tempstr.split("\\|",-1));
-            //模板地址
-            String filepath = "";
-            for (String fileName: tempNames) {
-                if (type > 0) {
-                    filepath="wordTemp/temp1/"+fileName;
-                }else {
-                    filepath="wordTemp/temp2/"+fileName;
+            List<String> ighoneFileList = new ArrayList<>();
+            if (book.getSType().equals("单签")) {
+                ighoneFileList = Arrays.asList(singleFile.split("\\|", -1));
+            }else if (book.getSType().equals("双签")){
+                ighoneFileList = Arrays.asList(doubleFile.split("\\|", -1));
+            }
+            //获取文件列表
+            File file = new File(newFilePath);
+            File[] fileList = file.listFiles();
+            for (int i = 0; i < fileList.length;i++) {
+                if (ighoneFileList.contains(fileList[i].getName())) {
+                    continue;
                 }
-                InputStream stream = getClass().getClassLoader().getResourceAsStream(filepath);
-                String zipFileName = fileName;
+                InputStream stream = new FileInputStream(fileList[i]);
+                String zipFileName = fileList[i].getName();
                 if (zipFileName.endsWith(".docx")&& !zipFileName.startsWith("19") && !zipFileName.startsWith("26")&& !zipFileName.startsWith("德鑫慧源")
                         && !zipFileName.startsWith("先息德鑫慧源") && !zipFileName.startsWith("先息服务合同")){
                     zipFileName = zipFileName.substring(0, zipFileName.length() - 1);
@@ -341,11 +351,11 @@ public class BookServiceImpl implements BookService {
                 //重点开始,创建压缩文件
                 //todo:原因为XSSFWorkbook.write 会自动关闭流，导致后续执行时报stream closed。
                 //todo:创建一个ByteArrayOutputStream，先将workbook写入ByteArrayOutputStream中，然后在写入zipOutputStream，即使在写入ByteArrayOutputStream后将流关闭，也不会影响zipOutputStream。
-                if (filepath.endsWith(".xlsx")){
+                if (fileList[i].getName().endsWith(".xlsx")){
                     exportExcel(data,stream,zipOutputStream);
-                }else if(filepath.endsWith(".xls")) {
+                }else if(fileList[i].getName().endsWith(".xls")) {
                     exportExcel2(data,stream,zipOutputStream);
-                }else if(filepath.endsWith(".jpg")) {
+                }else if(fileList[i].getName().endsWith(".jpg")) {
                     exportJpg(stream,zipOutputStream);
                 }else {
                     exportDoc(book,stream,zipOutputStream);
