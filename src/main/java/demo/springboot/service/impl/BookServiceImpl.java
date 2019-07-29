@@ -234,6 +234,9 @@ public class BookServiceImpl implements BookService {
                 while (result.endsWith("0")) {
                     result = result.substring(0, result.length() - 1);
                 }
+                if (result.endsWith(".")) {
+                    result = result.substring(0, result.length() - 1);
+                }
                 book.setBond(result);
             }
         }
@@ -285,6 +288,9 @@ public class BookServiceImpl implements BookService {
                 while (result.endsWith("0")) {
                     result = result.substring(0, result.length() - 1);
                 }
+                if (result.endsWith(".")) {
+                    result = result.substring(0, result.length() - 1);
+                }
                 book.setCSumMR(result);
             }
         }
@@ -295,6 +301,9 @@ public class BookServiceImpl implements BookService {
                 DecimalFormat df = new DecimalFormat("#.00000000");
                 String result = df.format(db);
                 while (result.endsWith("0")) {
+                    result = result.substring(0, result.length() - 1);
+                }
+                if (result.endsWith(".")) {
                     result = result.substring(0, result.length() - 1);
                 }
                 book.setCSumMRL(result);
