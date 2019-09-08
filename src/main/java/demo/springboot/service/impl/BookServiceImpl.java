@@ -41,40 +41,6 @@ public class BookServiceImpl implements BookService {
     private String singleFile;
     @Value("${doubleFile}")
     private String doubleFile;
-    //等额本息单双签
-    //单签
-    private String tempName ="备忘录.docx|1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|" +
-            "4个人借款格式申请书(2).xls|5贷前查询申请表.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|" +
-            "7.调查报告 抵押贷 打工者 怀安城(2)(1).docx|7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷.xls|" +
-            "9借款人支付委托书.docx|10受托支付审批表怀安城(1).docx|12个人单身证明承诺书.docx|" +
-            "15同意抵押意见书 （抵押贷款用）单签.docx|" +
-            "16二手车鉴定评估作业表(3).xlsx|19车抵贷  车辆贷款委托协议书(2)(1).docx|20个人汽车消费贷款推荐承诺书 怀安城.docx|21担保承诺书.docx|" +
-            "23债务人违约失信惩戒承诺函模板 2.docx|24上会  会议纪要.docx|25上会  送审报告.docx|" +
-            "26上会  协议合同.docx|德鑫慧源汽车分期贷款担保合同怀安城(1).docx|照片格式北京(1).docx|客户声明(1)(1).docx|17二手车评估营业执照.jpg|18评估执照.jpg";
-    //双签
-    private String tempName2 ="备忘录.docx|1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|" +
-            "4个人借款格式申请书(2).xls|5贷前查询申请表 双签.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|" +
-            "7.调查报告 抵押贷 打工者 怀安城(2)(1).docx|7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷 双签.xls|" +
-            "9借款人支付委托书.docx|10受托支付审批表怀安城(1).docx|12个人单身证明承诺书.docx|" +
-            "15同意抵押意见书 （抵押贷款用）.docx|" +
-            "16二手车鉴定评估作业表(3).xlsx|19车抵贷  车辆贷款委托协议书(2)(1).docx|20个人汽车消费贷款推荐承诺书 怀安城.docx|21担保承诺书.docx|" +
-            "23债务人违约失信惩戒承诺函模板 2.docx|24上会  会议纪要.docx|25上会  送审报告.docx|" +
-            "26上会  协议合同.docx|德鑫慧源汽车分期贷款担保合同怀安城(1).docx|照片格式北京(1).docx|客户声明(1)(1).docx|17二手车评估营业执照.jpg|18评估执照.jpg";
-    //先息后本模板单双签
-    private String tempNameX = "1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|4个人借款格式申请书.xls|" +
-            "5贷前查询申请表.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|7.调查报告 抵押贷 打工者 怀安城(2).docx|" +
-            "7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷.xls|9借款人支付委托书.docx|" +
-            "10受托支付审批表.docx|12个人单身证明承诺书.docx|15同意抵押意见书 （抵押贷款用）单签.docx|16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书.docx|" +
-            "20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|23债务人违约失信惩戒承诺函模板 2.docx|" +
-            "24上会  会议纪要.docx|25上会  送审报告.docx|26上会  协议合同.docx|客户声明(1).docx|三方委托协议(1).docx|" +
-            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx|机动车抵押登记.docx|17二手车评估营业执照.jpg|18评估执照.jpg";
-    private String tempNameX2 = "1贷款封面(抵押贷，怀2）.docx|2信贷档案目录2.xls|4个人借款格式申请书.xls|" +
-            "5贷前查询申请表 双签.xls|6面谈记录及授信额度测算表 抵押贷.xlsx|7.调查报告 抵押贷 打工者 怀安城(2).docx|" +
-            "7.调查报告 抵押贷 营业执照者 怀安城.docx|8信贷业务调查审查审批表  抵押贷 双签.xls|9借款人支付委托书.docx|" +
-            "10受托支付审批表.docx|12个人单身证明承诺书.docx|15同意抵押意见书 （抵押贷款用）.docx|16二手车鉴定评估作业表.xlsx|19车抵贷  车辆贷款委托协议书.docx|" +
-            "20个人汽车消费贷款推荐承诺书.docx|21担保承诺书(1)(1).docx|23债务人违约失信惩戒承诺函模板 2.docx|" +
-            "24上会  会议纪要.docx|25上会  送审报告.docx|26上会  协议合同.docx|客户声明(1).docx|三方委托协议(1).docx|" +
-            "先息德鑫慧源汽车分期贷款担保合同怀安城 (1).docx|先息服务合同(1).docx|照片格式北京(1).docx|机动车抵押登记.docx|17二手车评估营业执照.jpg|18评估执照.jpg";
     @Override
     public Page<Book> findAll(Integer page , Integer size) {
         @SuppressWarnings("deprecation")
@@ -168,58 +134,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void downloadBook3(Long id, HttpServletResponse resp, int type) throws IOException {
-//        Book book = findById(id);
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("cls", book);
-//        String zipName = book.getName();
-//        try {
-//            /*根据request的locale 得出可能的编码，中文操作系统通常是gb2312*/
-//            zipName = new String(zipName.getBytes("GB2312"), "ISO_8859_1");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        resp.setContentType("application/octet-stream;charset=UTF-8");
-//        resp.setHeader("Content-Disposition", "attachment;filename="+zipName+".zip");
-//        OutputStream os =  resp.getOutputStream();
-//        //压缩输出流
-//        UncloseableZipOutputStream zipOutputStream = new UncloseableZipOutputStream(os);
-//        try {
-//
-//            String fileName = "4个人借款格式申请书";// 设置文件名，根据业务需要替换成要下载的文件名
-//            for (int i = 0; i < 6; i++) {
-//                String filepath = "";
-//                if (type > 0) {
-//                    filepath="wordTemp/4个人借款格式申请书.xls";
-//                }else {
-//                    filepath="wordTemp/4个人借款格式申请书.xlsx";
-//                }
-//                InputStream stream = getClass().getClassLoader().getResourceAsStream(filepath);
-//                //todo：浏览器下载
-//                XSSFWorkbook wb= ExcelTemplateUtils.process2(data, stream);
-//                //重点开始,创建压缩文件
-//                ZipEntry z = new ZipEntry(fileName+i+".xlsx");
-//                zipOutputStream.putNextEntry(z);
-//                //todo:原因为XSSFWorkbook.write 会自动关闭流，导致后续执行时报stream closed。
-//                //todo:创建一个ByteArrayOutputStream，先将workbook写入ByteArrayOutputStream中，然后在写入zipOutputStream，即使在写入ByteArrayOutputStream后将流关闭，也不会影响zipOutputStream。
-//                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                wb.write(bos);
-//                bos.writeTo(zipOutputStream);
-//            }
-//
-//            zipOutputStream.flush();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }finally {
-//            //注意关闭顺序，否则可能文件错误
-//            if (zipOutputStream != null) {
-//                zipOutputStream.reallyClose();
-//            }
-//            if (os != null) {
-//                os.close();
-//            }
-//        }
-
+    public void downloadBook3(Long id, HttpServletResponse resp, int type){
     }
 
     @Override
