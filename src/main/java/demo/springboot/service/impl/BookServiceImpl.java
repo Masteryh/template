@@ -275,7 +275,7 @@ public class BookServiceImpl implements BookService {
                 //重点开始,创建压缩文件
                 //todo:原因为XSSFWorkbook.write 会自动关闭流，导致后续执行时报stream closed。
                 //todo:创建一个ByteArrayOutputStream，先将workbook写入ByteArrayOutputStream中，然后在写入zipOutputStream，即使在写入ByteArrayOutputStream后将流关闭，也不会影响zipOutputStream。
-                if (fileList[i].getName().endsWith(".xlsx")){
+                if (fileList[i].getName().endsWith(".xlsx")||fileList[i].getName().endsWith(".xlsm")){
                     exportExcel(data,stream,zipOutputStream);
                 }else if(fileList[i].getName().endsWith(".xls")) {
                     exportExcel2(data,stream,zipOutputStream);
